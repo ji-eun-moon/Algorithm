@@ -4,6 +4,12 @@ sample_input.txt
 
 Algorithm.py
 
-SWEA/input.txt
+input.txt
 
-SWEA/input(5).txt
+input(5).txt
+
+*.txt
+
+practice.py
+
+.DS_Store
