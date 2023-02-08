@@ -16,6 +16,7 @@ for test_case in range(1, T + 1):
 
     print(f'#{test_case} {result}')
 
+
 # Solution 2
 T = int(input())
 
