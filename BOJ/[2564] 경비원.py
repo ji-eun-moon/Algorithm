@@ -10,19 +10,36 @@ P, X = map(int, input().split())  # 동근이 위치 (방향, 왼 or 위로부�
 
 answer = 0
 for a in lst:
-    if (a[0], P) == (1, 2) or (a[0], P) == (2, 1):
-        d1 = S + X + a[1]
-        d2 = S + (G-X) + (G-a[1])
+    if P == a[0]:  # 방향 같으면
+        answer += abs(a[1]-X)
+    elif (P == 1 and a[0] == 2) or (P == 2 and a[0] == 1):  # 북-남
+        d1 = S + a[1] + X
+        d2 = S + (G-a[1]) + (G-X)
         answer += min(d1, d2)
-    elif (a[0], P) == (1, 3) or (a[0], P) == (3, 1):
-        answer += (X + a[1])
-    elif (a[0], P) == (4, 3) or (a[0], P) == (3, 4):
-        d1 = G + X + a[1]
-        d2 = G + (S - X) + (S - a[1])
+    elif (P == 3 and a[0] == 4) or (P == 4 and a[0] == 3):  # 동-서
+        d1 = G + a[1] + X
+        d2 = G + (S - a[1]) + (S - X)
         answer += min(d1, d2)
-    elif (a[0], P) == (1, 4):
-        answer += (G - a[1] + X)
-    elif (a[0], P) == (4, 1):
-        answer += (G + a[1] - X)
+    else:  # 나머지
+        if P == 1:  # 북
+            if a[0] == 3:  # 서
+                answer += (X + a[1])
+            elif a[0] == 4:  # 동
+                answer += (G-X + a[1])
+        elif P == 2:  # 남
+            if a[0] == 3:  # 서
+                answer += (X + S-a[1])
+            elif a[0] == 4:  # 동
+                answer += (G-X + S-a[1])
+        elif P == 3:  # 서
+            if a[0] == 1:  # 북
+                answer += (X + a[1])
+            elif a[0] == 2:  # 남
+                answer += (S-X+a[1])
+        elif P == 4:  # 동
+            if a[0] == 1:  # 북
+                answer += (X + G-a[1])
+            elif a[0] == 2:  # 남
+                answer += (G-a[1] + S-X)
 
 print(answer)
