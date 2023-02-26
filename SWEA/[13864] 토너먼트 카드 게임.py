@@ -1,4 +1,4 @@
-# 풀이중
+
 # 가위바위보 승자가리기
 def RSP(A, B):
     # 1 가위 2 바위 3 보
@@ -16,17 +16,17 @@ def RSP(A, B):
             return B
 
 def game(start, end):
-    if start == end:
-        return
-    start = game(start, (start+end)//2)
-    end = game((start+end)//2+1, end)
+    if start == end:  # 한명 남으면
+        return start
+    # 범위를 둘로 나누어 게임 진행
+    a = game(start, (start+end)//2)
+    b = game((start+end)//2+1, end)
+    return RSP(a, b)
 
 
 T = int(input())
 for test_case in range(1, T+1):
     N = int(input())
     lst = list(map(int, input().split()))
-
-    winner = game(1, N)
-
+    winner = game(0, N-1) + 1  # 인덱스 번호가 1 부터 시작하므로 1 더하기
     print(f'#{test_case} {winner}')
