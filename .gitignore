@@ -13,3 +13,5 @@ input(5).txt
 practice.py
 
 .DS_Store
+
+venv/
