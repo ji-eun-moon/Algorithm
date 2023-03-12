@@ -1,72 +1,34 @@
 # 풀이중
-import sys
-sys.stdin = open("input.txt", "r")
-#
-# T = int(input())
-# for test_case in range(1, T+1):
-#     V, E = map(int, input().split())
-#
-#     arr = [[0]*V for _ in range(V)]
-#
-#     for _ in range(E):
-#         A, B = map(int, input().split())
-#         arr[A-1][B-1] = 1
-#         arr[B-1][A-1] = 1
-#
-#     S, G = map(int, input().split())
-#     used = [0]*V
-#     cnt = 0
-#     Min = 21e8
-#     def abc(now):
-#         global cnt, Min
-#         if now == G-1:
-#             if Min > cnt:
-#                 Min = cnt
-#             return
-#         for i in range(V):
-#             if arr[now][i] == 1 and used[i] == 0:
-#                 used[i] = 1
-#                 cnt += 1
-#                 abc(i)
-#                 cnt -= 1
-#                 used[i] = 0
-#                 if cnt > Min:
-#                     return
-#
-#     abc(S-1)
-#     print(f'#{test_case} {Min}')
-
-from collections import deque
 
 T = int(input())
 for test_case in range(1, T+1):
-    V, E = map(int, input().split())
+    V, E = map(int, input().split())  # 노드개수, 간선개수
 
-    arr = [[0]*V for _ in range(V)]
+    arr = [[0]*(V+1) for _ in range(V+1)]
 
-    for _ in range(E):
+    for _ in range(E):  # 간선 정보
         A, B = map(int, input().split())
-        arr[A-1][B-1] = 1
-        # arr[B-1][A-1] = 1
+        arr[A][B] = 1
+        arr[B][A] = 1
 
-    S, G = map(int, input().split())
-    used = [0]*V
+    S, G = map(int, input().split())  # 출발, 도착 노드
+
     cnt = 0
-    answer = 0
     def bfs(st):
-        global cnt, answer
-        q = deque()
+        global cnt
+        q = []
+        visited = [0] * (V + 1)
         q.append(st)
-        used[st] = 1
+        visited[st] = 1
         while q:
-            now = q.popleft()
-            if now == G-1:
-                return
-            for i in range(V):
-                if arr[now][i] == 1 and used[i] == 0:
-                    used[i] = 1
-                    cnt += 1
+            now = q.pop(0)
+            if now == G:
+                return visited[G]-1
+            for i in range(V+1):
+                if arr[now][i] == 1 and visited[i] == 0:
+                    visited[i] += visited[now] + 1
                     q.append(i)
+        return 0
 
-    bfs(S-1)
-    print(f'#{test_case} {cnt}')
+
+    print(f'#{test_case} {bfs(S)}')
