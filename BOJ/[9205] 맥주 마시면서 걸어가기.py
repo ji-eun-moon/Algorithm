@@ -9,24 +9,24 @@ for test_case in range(1, T+1):
         by, bx = map(int, input().split())  # 편의점
         store.append([by, bx])
     edy, edx = map(int, input().split())  # 페스티벌
-
+    visited = [0] * N  # 편의점 방문 확인
     def bfs():
         q = deque()
-        v = [0]*N
         q.append((sty, stx))
 
         while q:
-            y, x = q.popleft()
-            if abs(edy-y) + abs(edx-x) <= 1000:
+            nowy, nowx = q.popleft()  # 현재 위치
+            # 현재 위치로부터 페스티벌 위치가 1000미터 이내라면 행복하게 도착 가능
+            if abs(edy-nowy) + abs(edx-nowx) <= 1000:
                 return 'happy'
             for i in range(N):
-                if v[i] == 0:
-                    sy, sx = store[i]
-                    # 50 미터 당 1 병 -> 20병은 1000미터 갈 수 있음
-                    if abs(sy-y) + abs(sx-x) <= 1000:
+                if visited[i] == 0:  # 아직 방문하지 않은 편의점일때
+                    sy, sx = store[i]  # 편의점 위치
+                    # 현재 위치로부터 편의점 위치가 1000미터 이내라면 그 편의점까지 갈 수 있음
+                    if abs(sy-nowy) + abs(sx-nowx) <= 1000:
                         q.append((sy, sx))
-                        v[i] = 1
-
+                        visited[i] = 1
+        # while문 다 돌때까지 리턴하지 않으면 도착하지 않은 것
         return 'sad'
 
     print(bfs())
