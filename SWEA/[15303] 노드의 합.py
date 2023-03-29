@@ -5,8 +5,9 @@ for test_case in range(1, T+1):
     for _ in range(M):
         a, b = map(int, input().split())
         lst[a] = b
-    
-    lst.insert(0, 0)
-    print(lst)
 
-    print(lst)
+
+    for i in range(N):
+        lst[(N-i)//2] += lst[N-i]
+
+    print(f'#{test_case} {lst[L]}')
