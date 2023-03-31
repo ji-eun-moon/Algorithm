@@ -1,19 +1,11 @@
 N, K = map(int, input().split())
-coins = []
+coins = [0]
 for _ in range(N):
     coins.append(int(input()))
+coins.sort()
+dp = [[0]*(K+1) for _ in range(N+1)]
 
-cnt = 0
-Min = 21e8
-def abc(changes):
-    global cnt
-    if changes < 0:
-        return
-    if changes == 0:
-        cnt += 1
-        return
-    for i in range(3):
-        abc(changes-coins[i])
+for i in range(1, N+1):
+    for j in range(1, K+1):
+        continue
 
-abc(K)
-print(cnt)
