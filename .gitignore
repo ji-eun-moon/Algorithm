@@ -15,3 +15,5 @@ practice.py
 .DS_Store
 
 venv/
+
+test.py
