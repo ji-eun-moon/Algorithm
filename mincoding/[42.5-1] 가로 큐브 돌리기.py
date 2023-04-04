@@ -3,45 +3,38 @@ import copy
 N = int(input())
 arr = [list(map(int, input().split())) for _ in range(N)]
 
-# y 행을 가로로 N번 회전 시키기
-def rot(y, N):
-    for _ in range(N):
-        lst = arr[y][:]
-        for i in range(N):
-            cube[y][(i+1)%N] = lst[i]
+# cube y행을 오른쪽으로 m칸 이동
+def rot(cube, y, m):
+    for i in range(N):
+        cube[y][(i+m)%N] = arr[y][i]
 
 # 점수 계산하기
 def calc(arr):
-    lst = []
+    score = 1
     for j in range(N):
         Sum = 0
         for i in range(N):
             Sum += arr[i][j]
-        lst.append(Sum)
-    score = 1
-    for num in lst:
-        score *= num
+        score *= Sum
     return score
 
-# 가능한 회전 횟수 조합 만들기
-result = []
-path = [0]*N
+# cnt 배열 = 회전 횟수 조합
+# level : 행 번호 / 저장된 값 : 회전 수
+Max = 0
+cnt = [0]*N
 def dfs(level):
     global Max
     if level == N:
-        result.append(path[:])
+        cube = copy.deepcopy(arr)
+        for i in range(N):
+            rot(cube, i, cnt[i])
+        Max = max(Max, calc(cube))
         return
     for i in range(N):
-        path[level] = i
+        cnt[level] = i
         dfs(level+1)
-        path[level] = 0
-dfs(0)
+        cnt[level] = 0
 
-Max = 0
-for a in result:
-    cube = copy.deepcopy(arr)
-    for i in range(N):
-        rot(i, a[i])
-    Max = max(Max, calc(cube))
+dfs(0)
 
 print(f'{Max}점')
