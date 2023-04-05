@@ -16,6 +16,7 @@ def calc(arr):
         for i in range(N):
             Sum += arr[i][j]
         score *= Sum
+
     return score
 
 # cnt 배열 = 회전 횟수 조합
