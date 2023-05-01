@@ -31,7 +31,7 @@ print(V)
 # BFS
 
 from collections import deque
-
+ㅎ
 def bfs(num, arr):
     cnt = 0
     q = deque()
