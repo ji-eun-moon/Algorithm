@@ -1,4 +1,4 @@
-# 1. 시간 초과
+# 시간 초과
 # from heapq import heappop, heapify, heappush
 
 # N = int(input())
@@ -29,6 +29,8 @@
 #         else:
 #             heappush(minh, num)
 #
+
+####################################################################################
 
 from heapq import heappop, heappush
 import sys
