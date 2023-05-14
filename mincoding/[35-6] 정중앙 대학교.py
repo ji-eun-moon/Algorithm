@@ -35,7 +35,7 @@
 from heapq import heappop, heappush
 import sys
 
-n = int(sys.stdin.readline())
+n = int()
 
 # max_heap과 min_heap 초기화
 max_heap = [-500]
