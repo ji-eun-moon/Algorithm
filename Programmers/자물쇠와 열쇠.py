@@ -67,7 +67,7 @@ print(solution([[0, 0, 0], [1, 0, 0], [0, 1, 1]], [[1, 1, 1], [1, 1, 0], [1, 0, 
 def rotate_by_zip(array, d):
     ret = array
     for i in range(d):
-        ret = list(map(list, zip(*array)))[::-1]
+        ret = list(map(list, zip(*array[::-1])))
         array = ret
     return ret
 
