@@ -17,34 +17,19 @@ def solution(relation):
     for i in range(1, x+1):
         combi_idx(0, 0, i)
 
-    # 만들어진 인덱스 조합으로 후보키 만들기
-    combinations = []
+    # 유일성 확인
+    unique = []
     for idx in idx_lst:
         part = []
-        for item in relation:
-            temp = tuple(item[i] for i in idx)
-            part.append(tuple(temp))
-        combinations.append(tuple(part))
+        for r in relation:
+            temp = tuple(r[key] for key in idx)
+            part.append(temp)
+        if len(set(part)) == y:
+            unique.append(idx)
 
-    unique = []
-    for combi in combinations:
-        temp = list(set(tuple(row) for row in combi))
-        if len(set(temp)) == y:
-            unique.append(temp)
-
-    # # 유일성 확인
-    # unique = []
-    # for idx in idx_lst:
-    #     # 인덱스 리스트로 후보키 리스트를 생성
-    #     part = []
-    #     for r in relation:
-    #         temp = tuple(r[key] for key in idx)
-    #         part.append(temp)
-    #     if len(set(part)) == y:
-    #         unique.append(idx)
 
     # 최소성 확인
-    answer = list(set(tuple(row) for row in unique))
+    answer = set(unique)
     N = len(unique)
     for i in range(N):
         for j in range(i+1, N):
