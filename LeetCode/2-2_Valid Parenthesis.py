@@ -25,6 +25,23 @@ class Solution:
 
         return True
 
+class Solution:
+    def isValid(self, s):
+        stack = []
+        for p in s:  # O(n)
+            if p == "{":
+                stack.append("}")
+            elif p == "[":
+                stack.append("]")
+            elif p == "(":
+                stack.append(")")
+            elif stack and stack[-1] == p:
+                stack.pop()
+            else:
+                return False
+        # 마지막에는 스택이 비어있어야 한다.
+        return not stack
+
 solve = Solution()
 print('#1', solve.isValid("()"))
 print('#2', solve.isValid("()[]{}"))
