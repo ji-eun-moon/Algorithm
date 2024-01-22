@@ -1,35 +1,79 @@
 # https://leetcode.com/problems/number-of-islands/description/
-from collections import deque
 
+# DFS
 class Solution:
     def numIslands(self, grid):
-        num = 0
+        cnt = 0
 
-        m = len(grid)  # 세로
-        n = len(grid[0])  # 가로
+        n, m = len(grid), len(grid[0])
+        visited = [[0]*m for _ in range(n)]
+        dy = [-1, 0, 1, 0]
+        dx = [0, -1, 0, 1]
 
-        visited = [[False] * n for _ in range(m)]
+        def dfs(y, x):
+            for i in range(4):
+                ny = y + dy[i]
+                nx = x + dx[i]
+                if 0 <= ny < n and 0 <= nx < m:
+                    if not visited[ny][nx] and grid[ny][nx] == "1":
+                        visited[ny][nx] = 1
+                        dfs(ny, nx)
+
+        for i in range(n):
+            for j in range(m):
+                if not visited[i][j] and grid[i][j] == "1":
+                    visited[i][j] = 1
+                    dfs(i, j)
+                    cnt += 1
+
+        return cnt
+
+# BFS
+
+from collections import deque
+class Solution:
+    def numIslands(self, grid):
+        cnt = 0
+
+        n, m = len(grid), len(grid[0])
+        visited = [[0]*m for _ in range(n)]
+        dy = [-1, 0, 1, 0]
+        dx = [0, -1, 0, 1]
 
         def bfs(y, x):
-            dx = [-1, 1, 0, 0]
-            dy = [0, 0, -1, 1]
-            visited[y][x] = True
             q = deque()
             q.append((y, x))
+
             while q:
-                cur_y, cur_x = q.popleft()
+                y, x = q.popleft()
                 for i in range(4):
-                    next_x = cur_x + dx[i]
-                    next_y = cur_y + dy[i]
-                    if 0 <= next_x < n and 0 <= next_y < m:
-                        if grid[next_y][next_x] == "1" and not visited[next_y][next_x]:
-                            visited[next_y][next_x] = True
-                            q.append((next_y, next_x))
+                    ny = y + dy[i]
+                    nx = x + dx[i]
+                    if 0 <= ny < n and 0 <= nx < m:
+                        if not visited[ny][nx] and grid[ny][nx] == "1":
+                            visited[ny][nx] = 1
+                            q.append((ny, nx))
 
-        for i in range(m):
-            for j in range(n):
-                if grid[i][j] == '1' and not visited[i][j]:
+        for i in range(n):
+            for j in range(m):
+                if not visited[i][j] and grid[i][j] == "1":
+                    visited[i][j] = 1
                     bfs(i, j)
-                    num += 1
+                    cnt += 1
 
-        return num
+        return cnt
+
+solve = Solution()
+print(solve.numIslands([
+  ["1","1","1","1","0"],
+  ["1","1","0","1","0"],
+  ["1","1","0","0","0"],
+  ["0","0","0","0","0"]
+]))
+
+print(solve.numIslands([
+  ["1","1","0","0","0"],
+  ["1","1","0","0","0"],
+  ["0","0","1","0","0"],
+  ["0","0","0","1","1"]
+]))
