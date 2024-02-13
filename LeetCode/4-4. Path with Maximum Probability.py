@@ -12,23 +12,25 @@ class Solution:
             graph[st].append([ed, v])
             graph[ed].append([st, v])
 
+        # 다익스트라 알고리즘
         probability = [0.0]*n
         probability[start_node] = 1.0
         q = []
-        heapq.heappush(q, (1.0, start_node))
+        heapq.heappush(q, (-1.0, start_node))  # 최대 힙
 
         while q:
-            prob, now = heapq.heappop(q)
+            cur_prob, now = heapq.heappop(q)
 
-            if probability[now] > prob:
+            # 이미 처리된 노드 제외
+            if - probability[now] > cur_prob:
                 continue
 
-            for vv, ww in graph[now]:
-                new_prob = probability[now] * ww
-                if new_prob > probability[vv]:
-                    probability[vv] = new_prob
-                    heapq.heappush(q, (new_prob, vv))
-
+            for v, prob in graph[now]:
+                new_prov = - cur_prob * prob
+                # 새로운 경로의 확률이 더 높으면 우선순위큐에 삽입
+                if new_prov > probability[v]:
+                    probability[v] = new_prov
+                    heapq.heappush(q, (-probability[v], v))
 
         return probability[end_node]
 
