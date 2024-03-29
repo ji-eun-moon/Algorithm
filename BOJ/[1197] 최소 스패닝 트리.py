@@ -15,7 +15,7 @@ for _ in range(E):
     edges.append((A, B, C))
 
 # 1. 그래프 간선들을 가중치 기준 오름차순으로 정렬
-edges.sort(key=lambda x:int(x[2]))
+edges.sort(key=lambda x:x[2])
 
 parent = [i for i in range(V+1)]
 
