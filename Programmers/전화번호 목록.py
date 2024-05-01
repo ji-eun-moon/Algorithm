@@ -10,11 +10,10 @@ def solution(phone_book):
     word_len = list(set(word_len))
 
     for word in word_dic:
-        for i in range(len(word_len)):
-            tmp = word_len[i]
-            if len(word) <= tmp:
+        for l in word_len:
+            if len(word) <= l:
                 continue
-            if word[:tmp] in word_dic:
+            if word[:l] in word_dic:
                 return False
 
     return True
